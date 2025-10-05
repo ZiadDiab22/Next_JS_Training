@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Noto_Kufi_Arabic } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/header/Header"
+// @ sign it's an alias to src directory
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,7 +34,8 @@ export default function RootLayout({
       <body
         className={kufi.className}
       >
-        {children}
+        <Header />
+        <main>{children}</main>
       </body>
     </html>
   );
