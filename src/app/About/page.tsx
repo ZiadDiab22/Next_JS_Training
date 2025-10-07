@@ -1,6 +1,6 @@
 const AboutPage = () => {
   return (
-    <div>About page زياد</div>
+    <div className="fix-height">About page زياد</div>
   )
 }
 

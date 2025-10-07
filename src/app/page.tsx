@@ -2,7 +2,7 @@ import Link from "next/link"
 
 const HomePage = () => {
   return (
-    <div>
+    <div className="fix-height">
       <h1>HomePage</h1>
       <p>Welcome to next js - Home Page</p>
       <div>

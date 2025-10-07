@@ -12,7 +12,7 @@ const info = async () => {
   const data: Post[] = await response.json(); //transform json file to javascript object
 
   return (
-    <section className='container m-auto px-5'>
+    <section className='fix-height container m-auto px-5'>
       <div className='flex items-center justify-center flex-wrap gap-9'>
         {data.map(item => (
           <div className="p-5 rounded-lg my-1 shadow-lg border-2 border-gray-400 hover:bg-slate-200 w-full md:w-2/5 lg:w-1/4" key={item.id}>
