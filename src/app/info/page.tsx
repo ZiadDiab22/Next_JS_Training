@@ -5,14 +5,14 @@ import { Post } from '@/utils/types'
 const info = async () => {
   const response = await fetch("https://jsonplaceholder.typicode.com/posts");
 
-  if (!response.ok){
-    throw new Error("failed to fetch posts"); 
+  if (!response.ok) {
+    throw new Error("failed to fetch posts");
   }
 
   const data: Post[] = await response.json(); //transform json file to javascript object
 
   return (
-    <section className='fix-height container m-auto px-5'>
+    <section className='flex items-center justify-center flex-wrap fix-height' style={{ padding: '2rem' }}>
       <div className='flex items-center justify-center flex-wrap gap-9'>
         {data.map(item => (
           <div className="p-5 rounded-lg my-1 shadow-lg border-2 border-gray-400 hover:bg-slate-200 w-full md:w-2/5 lg:w-1/4" key={item.id}>

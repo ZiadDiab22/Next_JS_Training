@@ -15,13 +15,13 @@ const SinglePostPage = async ({ params }: SinglePostPageProps) => {
   const post: Post = await response.json();
 
   return (
-    <section className="fix-height container m-auto w-full px-5 pt-8">
-      <div className="bg-white p-7 rounded-lg">
-        <h1 className="text-3xl font-bold text-gray-700 mb-2">
+    <section className="fix-height container m-auto w-full px-5 pt-8" style={{ padding: '2rem' }}>
+      <div className="bg-white rounded-lg" style={{ padding: '2rem' }}>
+        <h1 className="text-3xl font-bold text-gray-700">
           {post.title}
         </h1>
-        <div className="text-gray-100">8/12/2024</div>
-        <p className="text-gray-800 text-xl mt-5">{post.body}</p>
+        <div className="text-gray-700">8/12/2024</div>
+        <p className="text-gray-800 text-xl">{post.body}</p>
       </div>
     </section>
   )
