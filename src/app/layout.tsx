@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Noto_Kufi_Arabic } from "next/font/google";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 import "./globals.css";
 import Header from "@/components/header/Header"
 import Footer from "@/components/Footer"
@@ -17,7 +19,7 @@ const geistMono = Geist_Mono({
 
 const kufi = Noto_Kufi_Arabic({
   subsets: ['arabic'],
-  weight:['600']
+  weight: ['600']
 });
 
 export const metadata: Metadata = {
@@ -36,6 +38,7 @@ export default function RootLayout({
         className={kufi.className}
       >
         <Header />
+        <ToastContainer theme='colored' position='top-center' />
         <main>{children}</main>
         <Footer />
       </body>
