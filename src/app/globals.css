@@ -10,11 +10,11 @@ body {
   /* background-color:darkmagenta; */
 }
 
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
+} */
 
 .fix-height {
   min-height: calc(100vh - 150px);

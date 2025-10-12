@@ -1,3 +1,5 @@
+import AddCommentForm from "@/components/comments/AddCommentForm";
+import CommentItem from "@/components/comments/CommentItem";
 import { Post } from "@/utils/types"
 
 // in dynamic routes like this , nextjs put the dynamic value in props of the page
@@ -23,6 +25,13 @@ const SinglePostPage = async ({ params }: SinglePostPageProps) => {
         <div className="text-gray-700">8/12/2024</div>
         <p className="text-gray-800 text-xl">{post.body}</p>
       </div>
+      <AddCommentForm />
+      <h4 className="text-xl text-gray-800 ps-1 font-semibold mb-2 mt-7">
+        Comments
+      </h4>
+      <CommentItem />
+      <CommentItem />
+      <CommentItem />
     </section>
   )
 }
