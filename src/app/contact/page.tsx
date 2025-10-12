@@ -1,4 +1,5 @@
 import React from 'react'
+import type { Metadata } from "next";
 
 const contact = () => {
   return (
@@ -7,3 +8,8 @@ const contact = () => {
 }
 
 export default contact
+
+export const metadata: Metadata = {
+  title: "Contact Page",
+  description: "Contact Page",
+};

@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
 import AdminSideBar from "./AdminSideBar";
+
+export const metadata: Metadata = {
+  title: "Admin Dashboard",
+  description: "This is admin dashboard",
+};
 
 interface AdminDashboardLayoutProps {
   children: React.ReactNode;
 }
+
 
 const AdminDashboardLayout = ({ children }: AdminDashboardLayoutProps) => {
   return (
