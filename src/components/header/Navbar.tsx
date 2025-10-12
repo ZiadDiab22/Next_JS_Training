@@ -25,6 +25,7 @@ const Navbar = () => {
           <Link onClick={() => setToggle(false)} href="/" className={styles.navLink}>Home</Link>
           <Link onClick={() => setToggle(false)} href="/About" className={styles.navLink}>about</Link>
           <Link onClick={() => setToggle(false)} href="/info" className={styles.navLink}>info</Link>
+          <Link onClick={() => setToggle(false)} href="/admin" className={styles.navLink}>admin dashboard</Link>
           <Link onClick={() => setToggle(false)} href="/contact" className={styles.navLink}>contact</Link>
         </ul>
       </div>
