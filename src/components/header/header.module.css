@@ -60,7 +60,11 @@
 }
 
 .btn:hover {
-  background-color: blue;
+  padding: 14px;
+  background-color: black;
+  color: white;
+  transition: 0.3s;
+  border-radius: 10px;
 }
 
 .navLink:hover,
