@@ -5,6 +5,8 @@ import SearchPostInput from '@/components/posts/SearchPostInput';
 import Pagination from '@/components/posts/pagination';
 
 const info = async () => {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
   const response = await fetch("https://jsonplaceholder.typicode.com/posts", { cache: "no-store" });
   // const response = await fetch("https://jsonplaceholder.typicode.com/posts", { next: { revalidate: 30 } });
   // update caching memory every 30 seconds
