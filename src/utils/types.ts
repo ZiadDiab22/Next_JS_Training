@@ -4,3 +4,8 @@ export type Post = {
   title: string;
   body: string;
 }
+
+export type CreatePostDto = { //DTO : Data Transfer Object
+  title: string;
+  body: string;
+}
