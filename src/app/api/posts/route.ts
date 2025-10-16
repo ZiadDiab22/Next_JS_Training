@@ -31,13 +31,13 @@ export async function POST(request: NextRequest) {
   const body = await request.json() as CreatePostDto;
 
   const createPostschema = z.object({
-    title: z.string().min(2).max(200),
+    title: z.string().min(2, 'title must be more than 2 characters').max(200),
     body: z.string().min(10),
   });
 
   const validation = createPostschema.safeParse(body);
   if (!validation.success) {
-    return NextResponse.json({ message: validation.error.message }, { status: 400 })
+    return NextResponse.json({ message: validation.error.issues[0].message }, { status: 400 })
   }
 
   const newPost: Post = {
