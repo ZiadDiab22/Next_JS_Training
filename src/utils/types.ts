@@ -12,5 +12,5 @@ export type CreatePostDto = { //DTO : Data Transfer Object
 
 export type UpdatePostDto = { //DTO : Data Transfer Object
   title?: string;
-  body?: string;
+  desc?: string;
 }
