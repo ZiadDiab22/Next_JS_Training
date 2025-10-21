@@ -14,3 +14,9 @@ export type UpdatePostDto = { //DTO : Data Transfer Object
   title?: string;
   desc?: string;
 }
+
+export interface RegisterUserDto {
+  username:string;
+  email:string;
+  password:string;
+}
