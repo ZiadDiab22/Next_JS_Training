@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from 'zod';
 import prisma from "@/utils/db";
 import bcrypt from "bcryptjs";
-
+import { generateJWT } from "@/utils/generateToken";
 
 export async function POST(request: NextRequest) {
   try {
@@ -29,7 +29,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ message: "Invalid cardential" }, { status: 400 })
     }
 
-    return NextResponse.json({ message: "Login succeeded" }, { status: 200 })
+    const payload = { id: user.id, isAdmin: user.isAdmin, username: user.username }
+    const token = generateJWT(payload)
+
+    return NextResponse.json({ message: "Login succeeded", token: token }, { status: 200 })
 
   } catch (error) {
     return NextResponse.json({ message: "Internal Server Error" }, { status: 500 })

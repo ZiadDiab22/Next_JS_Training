@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from 'zod';
 import prisma from "@/utils/db";
 import bcrypt from "bcryptjs";
+import { generateJWT } from "@/utils/generateToken";
 
 export async function POST(request: NextRequest) {
   try {
@@ -34,11 +35,14 @@ export async function POST(request: NextRequest) {
         password: hashedPassword,
       },
       select: {
-        username: true, email: true, isAdmin: true
+        id: true, username: true, email: true, isAdmin: true
       }
     })
 
-    return NextResponse.json({ message: "User Registerd Successfully", user: newUser }, { status: 201 })
+    const payload = { id: newUser.id, isAdmin: newUser.isAdmin, username: newUser.username }
+    const token = generateJWT(payload)
+
+    return NextResponse.json({ message: "User Registerd Successfully", user: newUser, token: token }, { status: 201 })
 
   } catch (error) {
     return NextResponse.json({ message: "Internal Server Error" }, { status: 500 })
