@@ -14,7 +14,6 @@ export async function DELETE(request: NextRequest, { params }: Props) {
     }
 
     const authToken = request.headers.get('authToken') as string;
-    if (!authToken) return NextResponse.json({ message: "authToken is required" }, { status: 401 })
     const payload = jwt.verify(authToken, process.env.JWT_SECRET as string) as JwtPayload
 
     if (payload.id === user.id) {
