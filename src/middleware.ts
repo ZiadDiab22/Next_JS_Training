@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(request: NextRequest) {
-  const authToken = request.headers.get('authToken') as string;
+  const jwtToken = request.cookies.get("jwtToken")
+  const authToken = jwtToken?.value as string;
   if (!authToken) return NextResponse.json({ message: "authToken is required" }, { status: 401 })
 }
 

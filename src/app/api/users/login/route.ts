@@ -3,7 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from 'zod';
 import prisma from "@/utils/db";
 import bcrypt from "bcryptjs";
-import { generateJWT } from "@/utils/generateToken";
+import { generateJWT, setCookie } from "@/utils/generateToken";
+import { serialize } from "cookie";
 
 export async function POST(request: NextRequest) {
   try {
@@ -30,9 +31,11 @@ export async function POST(request: NextRequest) {
     }
 
     const payload = { id: user.id, isAdmin: user.isAdmin, username: user.username }
-    const token = generateJWT(payload)
 
-    return NextResponse.json({ message: "Login succeeded", token: token }, { status: 200 })
+    const cookie = setCookie(payload);
+
+    return NextResponse.json({ message: "Login succeeded" },
+      { status: 200, headers: { "Set-Cookie": cookie } })
 
   } catch (error) {
     return NextResponse.json({ message: "Internal Server Error" }, { status: 500 })

@@ -13,7 +13,8 @@ export async function DELETE(request: NextRequest, { params }: Props) {
       return NextResponse.json({ message: "User not found!" }, { status: 404 })
     }
 
-    const authToken = request.headers.get('authToken') as string;
+    const jwtToken = request.cookies.get("jwtToken")
+    const authToken = jwtToken?.value as string;
     const payload = jwt.verify(authToken, process.env.JWT_SECRET as string) as JwtPayload
 
     if (payload.id === user.id) {
