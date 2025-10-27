@@ -16,12 +16,18 @@ export type UpdatePostDto = { //DTO : Data Transfer Object
 }
 
 export interface RegisterUserDto {
-  username:string;
-  email:string;
-  password:string;
+  username: string;
+  email: string;
+  password: string;
 }
 
 export interface LoginUserDto {
-  email:string;
-  password:string;
+  email: string;
+  password: string;
+}
+
+export interface UpdateUserDto {
+  username?: string;
+  email?: string;
+  password?: string;
 }
