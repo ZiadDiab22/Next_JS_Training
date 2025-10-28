@@ -3,8 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from 'zod';
 import prisma from "@/utils/db";
 import bcrypt from "bcryptjs";
-import { generateJWT, setCookie } from "@/utils/generateToken";
-import { serialize } from "cookie";
+import { setCookie } from "@/utils/generateToken";
 
 export async function POST(request: NextRequest) {
   try {

@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/utils/db";
-import jwt, { JwtPayload } from "jsonwebtoken";
 import { verifyToken } from "@/utils/verifyToken";
 import { UpdateUserDto } from "@/utils/types";
 import bcrypt from "bcryptjs";

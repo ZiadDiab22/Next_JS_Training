@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import { JwtPayload } from "jsonwebtoken";
 
 export function verifyToken(request: NextRequest): JwtPayload | null {
@@ -11,7 +11,7 @@ export function verifyToken(request: NextRequest): JwtPayload | null {
 
     const payload = jwt.verify(authToken, process.env.JWT_SECRET as string) as JwtPayload
     return payload
-    
+
   } catch (error) {
     return null
   }

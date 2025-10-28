@@ -10,7 +10,7 @@ export type CreatePostDto = { //DTO : Data Transfer Object
   desc: string;
 }
 
-export type UpdatePostDto = { //DTO : Data Transfer Object
+export type UpdatePostDto = {
   title?: string;
   desc?: string;
 }
