@@ -36,3 +36,7 @@ export interface CreateCommentDto {
   text: string;
   postId: number
 }
+
+export interface UpdateCommentDto {
+  text: string
+}
