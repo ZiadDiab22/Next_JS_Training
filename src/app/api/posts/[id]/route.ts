@@ -9,7 +9,16 @@ interface Props {
 
 export async function GET(request: NextRequest, { params }: Props) {
   try {
-    const post = await prisma.post.findUnique({ where: { id: parseInt(params.id) } });
+    const post = await prisma.post.findUnique({
+      where: { id: parseInt(params.id) },
+      include: {
+        comments: {
+          orderBy: { createdAt: 'desc' },
+          include: { user: { select: { username: true, id: true } } }
+        }
+      }
+    });
+
     if (!post) {
       return NextResponse.json({ message: 'Post not found' }, { status: 404 });
     }
