@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { UpdatePostDto } from "@/utils/types";
 import prisma from "@/utils/db";
+import { verifyToken } from "@/utils/verifyToken";
 
 interface Props {
   params: { id: string }
@@ -21,6 +22,11 @@ export async function GET(request: NextRequest, { params }: Props) {
 
 export async function PUT(request: NextRequest, { params }: Props) {
   try {
+    const user = verifyToken(request)
+    if (user === null || user.isAdmin === false) {
+      return NextResponse.json({ message: "You are not allowed" }, { status: 403 })
+    }
+
     const post = await prisma.post.findUnique({ where: { id: parseInt(params.id) } });
 
     if (!post) {
@@ -44,6 +50,11 @@ export async function PUT(request: NextRequest, { params }: Props) {
 
 export async function DELETE(request: NextRequest, { params }: Props) {
   try {
+    const user = verifyToken(request)
+    if (user === null || user.isAdmin === false) {
+      return NextResponse.json({ message: "You are not allowed" }, { status: 403 })
+    }
+
     const post = await prisma.post.findUnique({ where: { id: parseInt(params.id) } });
     if (!post) {
       return NextResponse.json({ message: 'Post not found' }, { status: 404 });
