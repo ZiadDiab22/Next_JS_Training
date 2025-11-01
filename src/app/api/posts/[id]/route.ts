@@ -64,12 +64,16 @@ export async function DELETE(request: NextRequest, { params }: Props) {
       return NextResponse.json({ message: "You are not allowed" }, { status: 403 })
     }
 
-    const post = await prisma.post.findUnique({ where: { id: parseInt(params.id) } });
+    const post = await prisma.post.findUnique({ where: { id: parseInt(params.id) }, include: { comments: true } });
     if (!post) {
       return NextResponse.json({ message: 'Post not found' }, { status: 404 });
     }
 
     await prisma.post.delete({ where: { id: parseInt(params.id) } });
+
+    // deleting relatable comments
+    const commentIds: number[] = post?.comments.map(comment => comment.id);
+    await prisma.post.deleteMany({ where: { id: { in: commentIds } } });
 
     return NextResponse.json({ message: "post deleted successfully" }, { status: 200 });
   } catch (error) {

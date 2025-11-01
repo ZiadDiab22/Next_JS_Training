@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/utils/db";
 import { verifyToken } from "@/utils/verifyToken";
 import { UpdateUserDto } from "@/utils/types";
+import { z } from 'zod';
 import bcrypt from "bcryptjs";
 
 interface Props {
@@ -10,7 +11,7 @@ interface Props {
 
 export async function DELETE(request: NextRequest, { params }: Props) {
   try {
-    const user = await prisma.user.findUnique({ where: { id: parseInt(params.id) } });
+    const user = await prisma.user.findUnique({ where: { id: parseInt(params.id) }, include: { comments: true } });
     if (!user) {
       return NextResponse.json({ message: "User not found!" }, { status: 404 })
     }
@@ -21,6 +22,10 @@ export async function DELETE(request: NextRequest, { params }: Props) {
       await prisma.user.delete({ where: { id: parseInt(params.id) } })
       return NextResponse.json({ message: "Deleted Successfully" }, { status: 200 })
     }
+
+    // deleting relatable comments
+    const commentIds: number[] = user?.comments.map(comment => comment.id);
+    await prisma.post.deleteMany({ where: { id: { in: commentIds } } });
 
     return NextResponse.json({ message: "unauthorized" }, { status: 403 })
 
@@ -65,6 +70,17 @@ export async function PUT(request: NextRequest, { params }: Props) {
 
     const body = await request.json() as UpdateUserDto
 
+    const updateProfileSchema = z.object({
+      username: z.string().min(2).max(100).optional(),
+      email: z.string().min(3).max(200).email().optional(),
+      password: z.string().min(6).optional(),
+    })
+
+    const validation = updateProfileSchema.safeParse(body);
+    if (!validation.success) {
+      return NextResponse.json({ message: validation.error.issues[0].message }, { status: 400 })
+    }
+
     if (body.password) {
       if (body.password.length < 6)
         return NextResponse.json({ message: "password should contains 6 characters at least!" }, { status: 400 })
@@ -72,6 +88,7 @@ export async function PUT(request: NextRequest, { params }: Props) {
       const salt = await bcrypt.genSalt(10);
       body.password = await bcrypt.hash(body.password, salt);
     }
+
 
     const updatedUser = await prisma.user.update({
       where: { id: parseInt(params.id) },
