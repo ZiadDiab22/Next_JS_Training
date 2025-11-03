@@ -16,7 +16,7 @@ const pagination = ({ pages, pageNumber, route }: PaginationProps) => {
         (<Link href={`${route}?pageNumber=${pageNumber - 1}`} className="border border-gray-700 text-gray-700 py-1 px-3 font-bold text-xl cursor-pointer hover:bg-gray-200 transition"
         >Prev</Link>)}
       {pagesArr.map(page => (
-        <Link href={`${route}?pageNumber=${page}`} className={`${pageNumber === page ? "" : ""}border border-gray-700 text-gray-700 py-1 px-3 font-bold text-xl cursor-pointer hover:bg-gray-200 transition`}
+        <Link href={`${route}?pageNumber=${page}`} className={`${pageNumber === page ? "bg-gray-700 text-white hover:text-gray-700" : ""} border border-gray-700 text-gray-700 py-1 px-3 font-bold text-xl cursor-pointer hover:bg-gray-400 transition`}
           key={page}>{page}</Link>
       ))}
       {pageNumber !== pages &&
