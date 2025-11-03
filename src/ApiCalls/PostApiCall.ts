@@ -23,3 +23,16 @@ export async function getPostsCount(): Promise<number> {
   const { count } = await response.json() as { count: number }
   return count
 }
+
+export async function getPostsBasedOnSearch(searchText: string): Promise<Post[]> {
+  const response = await fetch(`http://localhost:3000/api/posts/search?searchText=${searchText}`, { cache: "no-store" });
+  // const response = await fetch("https://jsonplaceholder.typicode.com/posts", { next: { revalidate: 30 } });
+  // update caching memory every 30 seconds
+
+  if (!response.ok) {
+    throw new Error("failed to fetch posts");
+  }
+
+  const res = await response.json();  //transform json file to javascript object
+  return res.posts;
+}

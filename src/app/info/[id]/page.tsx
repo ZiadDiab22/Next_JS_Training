@@ -1,6 +1,6 @@
 import AddCommentForm from "@/components/comments/AddCommentForm";
 import CommentItem from "@/components/comments/CommentItem";
-import { Post } from "@/utils/types"
+import { Post } from "@/generated/prisma";
 
 // in dynamic routes like this , nextjs put the dynamic value in props of the page
 interface SinglePostPageProps {
@@ -8,7 +8,7 @@ interface SinglePostPageProps {
 }
 
 const SinglePostPage = async ({ params }: SinglePostPageProps) => {
-  const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${params.id}`)
+  const response = await fetch(`http://localhost:3000/api/posts/${params.id}`)
 
   if (!response.ok) {
     throw new Error("Failed to fetch post");
@@ -23,7 +23,7 @@ const SinglePostPage = async ({ params }: SinglePostPageProps) => {
           {post.title}
         </h1>
         <div className="text-gray-700">8/12/2024</div>
-        <p className="text-gray-800 text-xl">{post.body}</p>
+        <p className="text-gray-800 text-xl">{post.desc}</p>
       </div>
       <AddCommentForm />
       <h4 className="text-xl text-gray-800 ps-1 font-semibold mb-2 mt-7">
