@@ -16,3 +16,12 @@ export function verifyToken(request: NextRequest): JwtPayload | null {
     return null
   }
 }
+
+export function verifyTokenForPage(token: string): JwtPayload | null {
+  try {
+    const payload = jwt.verify(token, process.env.JWT_SECRET as string) as JwtPayload
+    return payload
+  } catch (error) {
+    return null
+  }
+}
