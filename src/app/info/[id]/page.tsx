@@ -1,6 +1,10 @@
+import { getSinglePost } from "@/ApiCalls/PostApiCall";
 import AddCommentForm from "@/components/comments/AddCommentForm";
 import CommentItem from "@/components/comments/CommentItem";
 import { Post } from "@/generated/prisma";
+import { SinglePost } from "@/utils/types";
+import { verifyTokenForPage } from "@/utils/verifyToken";
+import { cookies } from "next/headers";
 
 // in dynamic routes like this , nextjs put the dynamic value in props of the page
 interface SinglePostPageProps {
@@ -8,13 +12,10 @@ interface SinglePostPageProps {
 }
 
 const SinglePostPage = async ({ params }: SinglePostPageProps) => {
-  const response = await fetch(`http://localhost:3000/api/posts/${params.id}`)
+  const token = (await cookies()).get("jwtToken")?.value || ""
+  const user = verifyTokenForPage(token);
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch post");
-  }
-
-  const post: Post = await response.json();
+  const post: SinglePost = await getSinglePost(params.id);
 
   return (
     <section className="fix-height container m-auto w-full px-5 pt-8" style={{ padding: '2rem' }}>
@@ -22,16 +23,21 @@ const SinglePostPage = async ({ params }: SinglePostPageProps) => {
         <h1 className="text-3xl font-bold text-gray-700">
           {post.title}
         </h1>
-        <div className="text-gray-700">8/12/2024</div>
+        <div className="text-gray-700">{new Date(post.createdAt).toDateString()}</div>
         <p className="text-gray-800 text-xl">{post.desc}</p>
       </div>
-      <AddCommentForm />
-      <h4 className="text-xl text-gray-800 ps-1 font-semibold mb-2 mt-7">
+      <div className="mt-7">
+        {user ? (<AddCommentForm postId={post.id} />) :
+          (<p className="text-blue-600 md:text-xl">
+            to write a comment you should login first
+          </p>)}
+      </div>
+      {post.comments.length > 0 && (<h4 className="text-xl text-gray-800 ps-1 font-semibold mb-2 mt-7">
         Comments
-      </h4>
-      <CommentItem />
-      <CommentItem />
-      <CommentItem />
+      </h4>)}
+      {post.comments.map(comment => (
+        <CommentItem key={comment.id} comment={comment} />
+      ))}
     </section>
   )
 }

@@ -1,4 +1,5 @@
 import { Post } from '@/generated/prisma';
+import { SinglePost } from '@/utils/types';
 
 export async function getPosts(pageNumber: string | undefined): Promise<Post[]> {
   const response = await fetch(`http://localhost:3000/api/posts?pageNumber=${pageNumber}`, { cache: "no-store" });
@@ -35,4 +36,14 @@ export async function getPostsBasedOnSearch(searchText: string): Promise<Post[]>
 
   const res = await response.json();  //transform json file to javascript object
   return res.posts;
+}
+
+export async function getSinglePost(postId: string):Promise<SinglePost> {
+  const response = await fetch(`http://localhost:3000/api/posts/${postId}`, { cache: "no-store" });
+
+  if (!response.ok) {
+    throw new Error("failed to fetch post");
+  }
+
+  return response.json();
 }

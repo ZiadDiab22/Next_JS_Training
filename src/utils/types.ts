@@ -1,9 +1,8 @@
-export type Post = {
-  id: number;
-  user_id: number;
-  title: string;
-  body: string;
-}
+import { Post, User, Comment } from "@/generated/prisma";
+
+export type CommentWithUser = Comment & { user: User };
+
+export type SinglePost = Post & { comments: CommentWithUser[] }
 
 export type CreatePostDto = { //DTO : Data Transfer Object
   title: string;

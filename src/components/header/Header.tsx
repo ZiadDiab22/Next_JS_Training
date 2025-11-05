@@ -16,9 +16,9 @@ const Header = async () => {
       <Navbar />
       <div className={styles.right}>
         {user ? (<>
-          <strong className='text-blue-800 md:text-xl capitalize'>
+          <Link href="/" className='text-blue-800 md:text-xl capitalize'>
             {user?.username}
-          </strong>
+          </Link>
           <LogoutButton />
         </>) :
           (<><Link href="/login" className={styles.btn}>login</Link>
