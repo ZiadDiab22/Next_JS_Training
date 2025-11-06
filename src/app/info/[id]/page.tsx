@@ -36,7 +36,7 @@ const SinglePostPage = async ({ params }: SinglePostPageProps) => {
         Comments
       </h4>)}
       {post.comments.map(comment => (
-        <CommentItem key={comment.id} comment={comment} />
+        <CommentItem key={comment.id} comment={comment} userId={user?.id} />
       ))}
     </section>
   )
