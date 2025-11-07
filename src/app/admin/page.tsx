@@ -1,7 +1,16 @@
 import React from 'react'
 import AddPostForm from './AddPostForm'
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
+import { verifyTokenForPage } from '@/utils/verifyToken'
 
-const AdminPage = () => {
+const AdminPage = async () => {
+  const token = (await cookies()).get("jwtToken")?.value
+  if (!token) redirect("/");
+
+  const user = verifyTokenForPage(token);
+  if (user?.isAdmin === false) redirect("/")
+
   return (
     <div className='fix-height flex items-center justify-center px-5 lg:px-20' style={{ padding: '2.5rem' }}>
       <div className='shadow p-4 bg-purple-200 rounded w-full' style={{ padding: '2.5rem' }}>

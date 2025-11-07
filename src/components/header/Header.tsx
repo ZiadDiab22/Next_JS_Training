@@ -13,7 +13,7 @@ const Header = async () => {
 
   return (
     <header className={styles.header}>
-      <Navbar />
+      <Navbar isAdmin={user?.isAdmin || false} />
       <div className={styles.right}>
         {user ? (<>
           <Link href="/" className='text-blue-800 md:text-xl capitalize'>

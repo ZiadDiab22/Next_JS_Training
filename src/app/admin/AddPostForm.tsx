@@ -1,17 +1,30 @@
 "use client";
 
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import { toast } from 'react-toastify';
 
 const AddPostForm = () => {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
+  const router = useRouter();
 
-  const formSubmitHandler = (e: React.FormEvent) => { //e is a object of event that produced by sending form
+  const formSubmitHandler = async (e: React.FormEvent) => { //e is a object of event that produced by sending form
     e.preventDefault() //prevent the browser from reloading the page
     if (title === "") return toast.error("Title is required")
     if (desc === "") return toast.error("Description is required")
-    console.log({ title, desc });
+
+    try {
+      await axios.post("http://localhost:3000/api/posts", { title, desc })
+      setTitle("");
+      setDesc("");
+      toast.success("New Post Added")
+      router.refresh();
+    } catch (error: any) {
+      toast.error(error?.response?.data.message)
+      console.log(error)
+    }
   }
 
   return (
