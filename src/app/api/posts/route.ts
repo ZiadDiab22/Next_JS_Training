@@ -1,4 +1,4 @@
-import { CreatePostDto, Post } from "@/utils/types";
+import { CreatePostDto } from "@/utils/types";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from 'zod'
 import { verifyToken } from "@/utils/verifyToken";
