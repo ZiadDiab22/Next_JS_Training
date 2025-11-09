@@ -10,7 +10,9 @@ export async function GET(request: NextRequest) { //route handler
     const postsPerPage = 6
 
     const posts = await prisma.post.findMany({
-      skip: postsPerPage * (parseInt(pageNumber) - 1), take: postsPerPage
+      skip: postsPerPage * (parseInt(pageNumber) - 1),
+      take: postsPerPage,
+      orderBy: { createdAt: 'desc' }
     });
     return NextResponse.json({ posts: posts }, { status: 200 });
   } catch (error) {
