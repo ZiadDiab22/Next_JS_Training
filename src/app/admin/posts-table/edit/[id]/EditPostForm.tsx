@@ -31,8 +31,8 @@ const EditPostForm = ({ post }: EditPostFormProps) => {
   }
 
   return (
-    <form onSubmit={formSubmitHandler} className='flex flex-col' style={{ padding: '2rem' }}>
-      <input className='mb-4 border rounded p-2 text-xl' type="text" style={{ margin: '.5rem', width: 'full', background: 'white', border: "none" }}
+    <form onSubmit={formSubmitHandler} className='flex flex-col'>
+      <input className='mb-4 border rounded p-2 text-xl' type="text" style={{ width: 'full', background: 'white', border: "none" }}
         value={title} onChange={(e) => setTitle(e.target.value)} />
       <textarea className='mb-4 p-2 lg:text-xl rounded resize-none' rows={5} style={{ marginTop: '2rem', width: 'full', background: 'white' }}
         value={desc} onChange={(e) => setDesc(e.target.value)}></textarea>

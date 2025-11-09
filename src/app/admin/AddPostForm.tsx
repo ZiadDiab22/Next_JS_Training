@@ -29,10 +29,10 @@ const AddPostForm = () => {
 
   return (
     <form onSubmit={formSubmitHandler} className='flex flex-col' style={{ padding: '2rem' }}>
-      <input className='mb-4 border rounded p-2 text-xl' type="text" placeholder='Enter Post Title' style={{ margin: '.5rem', width: 'full', background: 'white', border: "none" }}
+      <input className='mb-4 border rounded p-2 text-xl' type="text" placeholder='Enter Post Title' style={{ width: 'full', background: 'white', border: "none" }}
         value={title} onChange={(e) => setTitle(e.target.value)} />
       {/* e reffers to Event Object , target reffers to current Element */}
-      <textarea className='mb-4 p-2 lg:text-xl rounded resize-none' rows={5} placeholder='Enter Post Description' style={{ marginTop: '2rem', width: 'full', background: 'white' }}
+      <textarea className='mb-4 p-2 lg:text-xl rounded resize-none' rows={5} placeholder='Enter Post Description' style={{ width: 'full', background: 'white' }}
         value={desc} onChange={(e) => setDesc(e.target.value)}></textarea>
       <button type='submit' className='text-2xl text-white bg-blue-700 hover:bg-blue-900 p-2 rounded-lg font-bold' style={{ marginTop: '2rem' }}>
         Add
