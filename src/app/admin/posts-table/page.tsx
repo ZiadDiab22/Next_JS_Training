@@ -4,9 +4,10 @@ import { redirect } from 'next/navigation'
 import { verifyTokenForPage } from '@/utils/verifyToken'
 import { Post } from '@/generated/prisma'
 import Link from 'next/link'
-import { getPostsCount, getPosts } from '@/ApiCalls/PostApiCall'
+import { getPosts } from '@/ApiCalls/PostApiCall'
 import Pagination from '@/components/posts/pagination';
 import DeletePostButton from './DeletePostButton'
+import prisma from '@/utils/db'
 
 interface AdminPostsTableProps {
   searchParams: { pageNumber: string }
@@ -20,7 +21,7 @@ const AdminPostsTable = async ({ searchParams: { pageNumber } }: AdminPostsTable
   if (user?.isAdmin === false) redirect("/")
 
   const data: Post[] = await getPosts(pageNumber)
-  const count: number = await getPostsCount()
+  const count: number = await prisma.post.count()
   const pages = Math.ceil(count / 6)
 
   return (

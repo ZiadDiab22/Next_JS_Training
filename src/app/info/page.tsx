@@ -4,7 +4,8 @@ import Link from 'next/link'
 import { Post } from '@/generated/prisma';
 import SearchPostInput from '@/components/posts/SearchPostInput';
 import Pagination from '@/components/posts/pagination';
-import { getPosts, getPostsCount } from '@/ApiCalls/PostApiCall';
+import { getPosts } from '@/ApiCalls/PostApiCall';
+import prisma from '@/utils/db';
 
 interface PostPageProps {
   searchParams: { pageNumber: string }
@@ -15,7 +16,7 @@ const info = async ({ searchParams }: PostPageProps) => {
 
   const { pageNumber } = searchParams;
   const data: Post[] = await getPosts(pageNumber)
-  const count: number = await getPostsCount()
+  const count: number = await prisma.post.count()
   const pages = Math.ceil(count / 6)
 
   return (
